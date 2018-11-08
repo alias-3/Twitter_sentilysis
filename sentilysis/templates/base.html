@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<title>TSA</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	{% block script %}
+	{% endblock %}
+
+</head>
+<body>
+	<nav style="background-color: #7231FF !important;" class="navbar fixed-top navbar-dark">
+	<div class="container-fluid">	
+	<div class="navbar-brand h1" style="font-size: 1.2em">Sentiment Analysis</div>
+	<ul class="navbar-nav nav ml-auto navbar-right">
+			<li class="nav-item" style="float:left;">
+				<a href="#"><button style="color: #6C6A6A;background-color: #FFEA17" class="btn btn-warning">Login</button></a>
+				<a href="#"><button style="background-color: #F0F0F0" class="btn btn-outline-default">SignUp</button></a>
+			</li>
+	</ul>	
+	</div>
+	</nav>
+
+	{% block heading %}
+	{% endblock %}
+
+	{% block content %}
+	{% endblock %}
+	{% block dic %}
+	{% endblock %}
+	{% block graph %}
+	{% endblock %}
+	{% block results %}
+	{% endblock %}
+	{% block footer%}
+	{% endblock %}
+</body>
+</html>
