@@ -7,20 +7,24 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	{% block script %}
+	<link rel="icon" type="image/x-icon" sizes="32x32" href="{% static '/img/favicon.ico' %}">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{%static '/sffont.css'%}">
+	{% block graphscript %}
 	{% endblock %}
 
+ 
 </head>
 <body>
 	<nav style="background-color: #7231FF !important;" class="navbar fixed-top navbar-dark">
 	<div class="container-fluid">	
 	<div class="navbar-brand h1" style="font-size: 1.2em">Sentiment Analysis</div>
-	<ul class="navbar-nav nav ml-auto navbar-right">
+	<!--<ul class="navbar-nav nav ml-auto navbar-right">
 			<li class="nav-item" style="float:left;">
 				<a href="#"><button style="color: #6C6A6A;background-color: #FFEA17" class="btn btn-warning">Login</button></a>
 				<a href="#"><button style="background-color: #F0F0F0" class="btn btn-outline-default">SignUp</button></a>
 			</li>
-	</ul>	
+	</ul>-->	
 	</div>
 	</nav>
 
@@ -35,7 +39,15 @@
 	{% endblock %}
 	{% block results %}
 	{% endblock %}
-	{% block footer%}
+	
+
+	<div class="container-fluid" style="background-color: black;opacity: 0.9;height: 15vh;margin:20vh auto 0 auto;color: white;text-align:center; ">
+		<div style="padding-top:5vh;margin: 0"><sup>&copy;</sup> 2018 Anurag Wani | siteworks</div>
+	</div>
+
+
+
+	{% block script %}
 	{% endblock %}
 </body>
 </html>

@@ -3,14 +3,15 @@
 
 
 
-{% block script %}
+{% block graphscript %}
+{% if q != "" %}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Sentiment', 'percent'],
+          ['Tweet', 'Polarity'],
           ['Positivity', {{pos}} ],
           ['Negativity', {{neg}} ],
           ['Neutrality', {{net}} ]
@@ -19,6 +20,8 @@
         var options = {
           title: 'Analysis',
           pieHole: 0.5,
+          animation:{ duration: 3000,startup: true,easing: 'out'
+      	  },
           colors: ['#900C3F','#FFC300','#DAF7A6']
         };
 
@@ -26,6 +29,7 @@
         chart.draw(data, options);
       }
     </script>
+    {% endif %}
  {% endblock %}
 
 
@@ -53,9 +57,9 @@
 			outline: none;
 			border:1px solid #cccccc;
 			border-radius: 4px;" 
-		type="text" name="query" placeholder="Enter keyword" autocomplete="off"></div>
+		type="text" name="query" title="Search for a topic" placeholder="Enter keyword" autocomplete="on"></div>
 		<div style="margin: 3em">
-			<select name="numtweets" class="btn btn-light">
+			<select name="numtweets" title="Number of tweets" class="btn btn-light">
 				<option value="25">25</option>
 				<option value="50">50</option>
 				<option value="100">100</option>
@@ -63,7 +67,7 @@
 			
 			<input type="submit" name="submit" value="Search" class="btn btn-outline-dark"> 
 
-			<button class="btn btn-light ">Download</button>
+			<button class="btn btn-light" title="Download as CSV file" onclick="download_csv()">Download</button>
 		</div>
 	</form>
 </div>
@@ -72,16 +76,27 @@
 
 {% block results %}
 {% if q != "" %}
-<div class="container"><h1>Tweets: </h1></div>
-<div class="container" style="padding: 0;background-color:grey">
+<div class="container" style="font-size: 3em;margin:5vh auto 0 auto;font-weight: bold">Tweets:
+</div>
+
+<div class="container" style="padding: 30px 0 0 0;">
 	<ul style="list-style: none;" class="list-group list-group-flush">
-		{% for tweet in tweet_list %}
-		<li class="list-group-item" style="cursor: auto;">
+	{% for tweet,val in pol_dict %}
+		<li class="list-group-item" id="{{val}}" style="font-family: 'Source Sans Pro',sans-serif;
+font-weight: 400;font-size: 20px">
 			{{tweet.text}}
 		</li>
-		{% endfor %}
+	{% endfor %}
 	</ul>
 </div>
+<div class="container dropup" style="text-align: center;"><button class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" style="font-size: 1.2em;margin:5vh auto 0 auto;text-align:center;font-weight: bold">polarity</button>
+	<div class="dropdown-menu">
+		<a class="dropdown-item" onclick="positive()">Postive</a>
+		<a class="dropdown-item" onclick="negative()">Negative</a>
+    	<a class="dropdown-item" onclick="neutral()">Neutral</a>
+	</div>
+</div>
+
 {% endif %}
 {% endblock %}
 
@@ -89,7 +104,42 @@
 
 {% block graph %}
 {% if q != "" %}
+
 	<div style="text-align: center;font-size: 3em;font-weight: bold;margin-top: 100px">Graph: </div>
-    <div class="container" id="donutchart" style="margin:auto;padding:0; height: 500px;text-align: center;"></div>
+    <div class="container" id="donutchart" style="margin:auto;padding:0;height: 600px;text-align: center;"></div>
+
 {% endif %}
 {% endblock %}}
+
+
+{% block script%}
+{% if csv_len != 0 %}
+	<script type="text/javascript">
+		
+		var data = JSON.parse('{{ csv_list|safe }}');
+		
+		
+
+		function download_csv() {
+		    var csv = 'Tweet,Polarity\n';
+		    data.forEach(function(row) {
+		            csv += row.join(',');
+		            csv += "\n";
+		    });
+		 
+		    console.log(csv);
+		    var hiddenElement = document.createElement('a');
+		    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+		    hiddenElement.target = '_blank';
+		    hiddenElement.download = 'data.csv';
+		    hiddenElement.click();
+		}
+
+		function positive(){
+			document.getElementsByTag('li').function(){
+				document.getElementById('1').addClass('positive')	
+		}
+				
+	</script>
+	{% endif %}
+{% endblock %}
